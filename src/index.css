@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+  }
+}
+
+@layer components {
+  .calendar-grid {
+    @apply grid grid-cols-7 gap-1;
+  }
+  
+  .calendar-day {
+    @apply bg-neutral-900 p-4 min-h-[200px] relative;
+  }
+  
+  .calendar-day-header {
+    @apply text-sm font-medium mb-2;
+  }
+  
+  .event-count {
+    @apply absolute bottom-2 left-2 px-2 py-1 rounded text-xs font-medium;
+  }
+  
+  .event-count-active {
+    @apply bg-emerald-600 text-white;
+  }
+  
+  .event-count-none {
+    @apply bg-amber-700/50 text-amber-400;
+  }
+  
+  .event-posters {
+    @apply grid grid-cols-2 gap-1;
+  }
+  
+  .event-poster {
+    @apply rounded overflow-hidden aspect-square;
+  }
+  
+  .event-poster img {
+    @apply w-full h-full object-cover;
+  }
+}
