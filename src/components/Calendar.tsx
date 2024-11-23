@@ -70,7 +70,7 @@ export const Calendar: React.FC<CalendarProps> = ({ events }) => {
                 className={`calendar-day w-full text-left ${
                   !isCurrentMonth ? 'opacity-50' : ''
                 } ${
-                  isCurrentDay ? 'ring-2 ring-blue-500' : ''
+                  isCurrentDay ? 'ring-2 ring-[#ae4824]' : ''
                 } hover:bg-neutral-800 transition-colors ui-open:bg-neutral-800`}
               >
                 <div className="calendar-day-header">
