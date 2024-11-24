@@ -4,7 +4,7 @@ export const EVENTS: Event[] = [
   {
     id: '1',
     name: 'Summer Music Festival',
-    date: '2024-11-22',
+    date: '2024-11-1',
     category: 'Music',
     location: 'Central Park',
     price: 75.00,
@@ -31,7 +31,7 @@ export const EVENTS: Event[] = [
   {
     id: '4',
     name: 'Art Gallery Opening',
-    date: '2024-07-06',
+    date: '2024-11-1',
     category: 'Art',
     location: 'Modern Art Museum',
     price: 25.00,
