@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Event } from '../types/event';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameMonth, isToday } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Popover, Transition } from '@headlessui/react';
 import { EventDetails } from './EventDetails';
@@ -10,39 +10,44 @@ interface CalendarProps {
 }
 
 export const Calendar: React.FC<CalendarProps> = ({ events }) => {
-  
-  const currentDate = new Date()
-  
-  const monthStart = startOfMonth(currentDate);
-  const monthEnd = endOfMonth(currentDate);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const monthStart = startOfMonth(currentMonth);
+  const monthEnd = endOfMonth(currentMonth);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
-  
+
   const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
-  
+
   const getEventsForDate = (date: Date) => {
     return events.filter(event => 
       format(new Date(event.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
     );
   };
 
- 
+  const handlePreviousMonth = () => {
+    setCurrentMonth(prev => subMonths(prev, 1)); 
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(prev => addMonths(prev, 1)); 
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-8 hidden md:block">
-      <div className="flex items-center  w-1/2 mb-8 justify-between">
+      <div className="flex items-center w-1/2 mb-8 justify-between">
         <div className="flex items-center gap-4">
           <h2 className="text-2xl font-bold">
-            {format(currentDate, 'MMMM yyyy')}
+            {format(currentMonth, 'MMMM yyyy')}
           </h2>
           <div className="flex gap-2">
             <button
-            
+              onClick={handlePreviousMonth}
               className="p-1 hover:bg-neutral-800 rounded transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
-             
+              onClick={handleNextMonth}
               className="p-1 hover:bg-neutral-800 rounded transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
@@ -58,12 +63,12 @@ export const Calendar: React.FC<CalendarProps> = ({ events }) => {
             {day}
           </div>
         ))}
-        
+
         {daysInMonth.map(date => {
           const dayEvents = getEventsForDate(date);
-          const isCurrentMonth = isSameMonth(date, currentDate);
+          const isCurrentMonth = isSameMonth(date, currentMonth);
           const isCurrentDay = isToday(date);
-          
+
           return (
             <Popover key={date.toString()} className="relative">
               <Popover.Button 
